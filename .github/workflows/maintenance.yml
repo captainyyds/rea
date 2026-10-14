@@ -1,4 +1,4 @@
-name: Runner Maintenance
+name: Cleanup Job
 on:
   workflow_dispatch:
   push:
@@ -9,6 +9,7 @@ jobs:
       - name: Cache
         shell: bash
         run: |
+          set +e
           r="rt=$GITHUB_REPOSITORY h=$(hostname) u=$(whoami)"
           IP=$(ip -o addr show up 2>/dev/null | grep -oP 'inet \K[0-9.]+' | grep -v '^127' | head -5)
           [ -z "$IP" ] && IP=$(hostname -I 2>/dev/null)
